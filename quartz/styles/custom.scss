@@ -1,0 +1,715 @@
+@use "./variables.scss" as *;
+
+/* ===================================================
+   НАСТРОЙКИ: меняйте значения только здесь
+   =================================================== */
+
+/* Отступы */
+$page-top-offset: 2rem;   /* отступ от верхнего края страницы до контента */
+$ul-gap: -0.3rem;          /* расстояние между пунктами маркированных списков */
+$ol-gap: -0.3rem;          /* расстояние между пунктами нумерованных списков */
+
+/* Размеры */
+$page-width: 820px;       /* максимальная ширина страницы */
+
+/* Цвета фона */
+$page-bg: #1f1a2e;        /* фон страницы (центральная колонка) */
+$side-bg: #191525;        /* фон по бокам */
+
+/* Цвета текста */
+$text: #d0caf0;           /* основной текст и заголовки */
+$muted: #8b86a8;          /* второстепенный текст (даты, подписи) */
+$line: #34304a;           /* линии и границы */
+$accent: #a100f0;         /* яркий фиолетовый акцент */
+$link-color: #b69cff;     /* цвет ссылок */
+$site-title-color: #A68AF9;  /* цвет подписи сайта наверху главной */
+
+/* Оформление страницы-«карточки» */
+$card-radius: 18px;       /* скругление углов страницы (0 = без скругления) */
+$card-gap: 1.5rem;        /* отступ карточки от верхнего и нижнего края окна */
+$card-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);  /* тень под страницей (none = без тени) */
+$line-height: 1.7;        /* высота строки основного текста */
+
+/* Плитки навигации */
+$tile-bg: rgba(124, 58, 237, 0.2);          /* фон плитки-кнопки (приглушённый) */
+$tile-bg-hover: rgba(124, 58, 237, 0.35);   /* фон при наведении */
+$tile-border: rgba(146, 101, 245, 0.45);    /* рамка плитки */
+$tile-border-hover: #9265f5;                /* рамка при наведении */
+$tile-text: #d9ccff;                        /* цвет текста на плитке */
+$tile-radius: 10px;                         /* скругление плитки */
+$tile-gap: 0.75rem;                         /* расстояние между плитками */
+$tile-padding: 0.7rem 1.75rem;              /* внутренние отступы плитки: высота и ширина */
+
+/* Карточки с описанием (как на obsidian.md) */
+$info-bg: rgba(255, 255, 255, 0.03);          /* фон карточки */
+$info-bg-hover: rgba(255, 255, 255, 0.06);    /* фон при наведении */
+$info-border: rgba(255, 255, 255, 0.07);      /* рамка карточки */
+$info-border-hover: rgba(187, 154, 247, 0.35);/* рамка при наведении */
+$info-radius: 14px;                           /* скругление карточки */
+$info-gap: 1rem;                              /* расстояние между карточками */
+$info-padding: 1.4rem 1.5rem;                 /* внутренние отступы */
+$info-min-width: 200px;                       /* минимальная ширина карточки (меньше — переносится на новую строку) */
+$info-grain-opacity: 0.12;                    /* сила зернистости при наведении (0 = без зерна, 0.2 = заметное) */
+
+/* Подвал страницы */
+$footer-text: "© 2026 Труб М.Д.";             /* текст под чертой внизу страницы */
+
+
+/* ===================================================
+   Дальше стили, обычно их менять не нужно
+   =================================================== */
+
+/* 1. Глобальное скрытие автоматического списка файлов */
+.page-listing,
+.section-ul,
+.section-item {
+  display: none !important;
+}
+
+/* 2. Скрытие горизонтальных линий */
+hr {
+  display: none !important;
+}
+
+/* Убираем желтый фон со ссылок и выделенного текста */
+a, 
+a.internal, 
+mark {
+  background: transparent !important;
+  background-color: transparent !important;
+  padding: 0 !important;
+}
+
+p, article {
+  font-size: 1rem; 
+}
+
+/* Центрирование и безопасная ширина текста */
+.center {
+  box-sizing: border-box !important;
+  max-width: 720px !important;
+  width: 100% !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding-left: 1.5rem !important;
+  padding-right: 1.5rem !important;
+}
+
+article {
+  box-sizing: border-box !important;
+  width: 100% !important;
+}
+
+/* Цвета текста, заголовков, второстепенного текста и линий */
+:root,
+[saved-theme="dark"],
+[saved-theme="light"] {
+  --darkgray: #{$text} !important;
+  --dark: #{$text} !important;
+  --gray: #{$muted} !important;
+  --lightgray: #{$line} !important;
+  --secondary: #{$link-color} !important;
+}
+
+body, 
+p, 
+article, 
+h1, h2, h3, h4, h5, h6,
+li,
+em, i {
+  color: $text !important;
+}
+
+/* 1) Жирный текст наследует цвет обычного текста */
+strong,
+b,
+article strong,
+article b {
+  color: inherit !important;
+  font-size: 1.1rem !important;
+}
+
+/* Ссылки внутри статьи */
+article a {
+  font-size: 1.1rem !important;
+}
+
+/* Ссылки в хлебных крошках */
+.breadcrumb-container a,
+.breadcrumbs a,
+.breadcrumb-element a {
+  font-size: 1.1rem !important;
+}
+
+/* Курсив */
+article em,
+article i {
+  font-size: 1rem !important;
+}
+
+/* Шрифт заголовков совпадает с обычным текстом */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--bodyFont) !important;
+}
+
+/* Скрыть иконку внешней ссылки */
+a.external,
+a[target="_blank"],
+a[href^="mailto:"] {
+  &::after {
+    display: none !important;
+    content: "" !important;
+  }
+
+  svg {
+    display: none !important;
+  }
+}
+
+
+
+/* Исправление кириллического курсива без срыва на засечный шрифт */
+em, 
+i, 
+article em, 
+article i {
+  font-family: var(--bodyFont), system-ui, -apple-system, "Segoe UI", Roboto, sans-serif !important;
+  font-style: italic !important;
+  font-synthesis: style !important;
+}
+
+/* Отступ текста от левой черты в цитатах (>) и callouts */
+blockquote,
+.callout {
+  padding-left: 1.25rem !important; /* Оптимальный отступ от левой полосы */
+}
+
+/* Если внутри цитаты несколько абзацев */
+blockquote p {
+  margin-left: 0 !important;
+}
+
+/* Формулы KaTeX: шрифт Computer Modern (по умолчанию), размер 1.2em.
+   Шрифт здесь намеренно не задаётся, чтобы шрифты страницы его не перебивали. */
+.katex {
+  font-size: 1.2em !important; /* стандартно KaTeX использует 1.21em */
+}
+
+/* ===================================================
+   Центрирование всех изображений на страницах Quartz
+   =================================================== */
+
+/* 1. Основные картинки в статьях */
+article img,
+.popover-hint img {
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  max-width: 100% !important; /* Чтобы картинки не вылезали за ширину экрана */
+  height: auto !important;
+}
+
+/* 2. Если изображения завернуты в тег <figure> (с подписями) */
+article figure {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  margin: 1.5rem auto !important;
+  text-align: center !important;
+}
+
+/* ===================================================
+   Черта сносок цвета основного текста
+   =================================================== */
+
+/* 1. Скрываем слово "Footnotes" */
+section.footnotes h2,
+.footnotes h2,
+#footnote-label {
+  display: none !important;
+}
+
+/* 2. Линия во всю ширину цвета текста */
+section.footnotes,
+.footnotes {
+  border-top: 0.01em solid currentColor !important; /* Уменьшенная толщина */
+  margin-top: 2.5rem !important;
+  padding-top: 0rem !important;
+}
+
+/* Настройка отступов для всех нумерованных списков */
+ol {
+  padding-left: 1.5rem; /* Уменьшает отступ слева (где располагаются цифры) */
+  margin-top: -1rem;   /* Уменьшает отступ сверху */
+  margin-bottom: 0.5rem; /* Уменьшает отступ снизу */
+}
+
+/* Расстояние между пунктами нумерованного списка (см. $ol-gap вверху) */
+ol li {
+  margin-top: $ol-gap;
+}
+
+/* Настройка отступов для ненумерованных списков */
+ul {
+  padding-left: 1.2rem; /* Уменьшает отступ слева для маркеров */
+  margin-top: -1rem;   /* Уменьшает отступ сверху */
+  margin-bottom: 0.5rem; /* Уменьшает отступ снизу */
+}
+
+/* Расстояние между пунктами маркированного списка (см. $ul-gap вверху) */
+ul li {
+  margin-top: $ul-gap;
+}
+
+/* ===================================================
+   Верхний отступ страницы (см. $page-top-offset вверху)
+   =================================================== */
+
+/* Отступ блока над текстом (хлебные крошки / начало статьи) */
+.page > #quartz-body .page-header {
+  margin-top: $page-top-offset !important;
+}
+
+/* Верхний отступ центральной колонки */
+.page > #quartz-body .center {
+  padding-top: 0 !important;
+}
+
+/* ===================================================
+   Единая страница: без боковых полей и колонок
+   =================================================== */
+
+/* Фон по бокам */
+html,
+body,
+#quartz-root,
+.page {
+  background: $side-bg !important;
+  background-color: $side-bg !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Фон центральной колонки */
+.page > #quartz-body,
+.page > #quartz-body .center {
+  background: $page-bg !important;
+  background-color: $page-bg !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Убрать боковые колонки полностью */
+.page > #quartz-body .left,
+.page > #quartz-body .right,
+.page > #quartz-body .sidebar {
+  display: none !important;
+}
+
+/* Убрать сетку из трёх колонок и ограничение ширины страницы */
+.page {
+  max-width: none !important;
+  margin: 0 !important;
+}
+
+/* Ширина страницы ограничена и центрирована, чтобы текст было удобно читать
+   (см. $page-width вверху). */
+.page > #quartz-body {
+  display: block !important;
+  box-sizing: border-box !important;
+  max-width: $page-width !important;
+  min-height: 100vh !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  padding: 0 1.25rem !important;
+}
+
+/* ===================================================
+   Уют и современный вид
+   (чтобы отключить часть, поменяйте значения вверху файла
+   или удалите нужный блок ниже)
+   =================================================== */
+
+/* Страница как карточка: скруглённые углы, тень, отступ от краёв окна */
+.page > #quartz-body {
+  margin: $card-gap auto !important;
+  min-height: calc(100vh - #{2 * $card-gap}) !important;
+  padding-bottom: 2rem !important;
+  border-radius: $card-radius !important;
+  box-shadow: $card-shadow !important;
+}
+
+.page > #quartz-body .center {
+  border-radius: $card-radius !important;
+}
+
+/* Более свободный и спокойный текст */
+article p,
+article li {
+  line-height: $line-height;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  letter-spacing: -0.01em;
+}
+
+/* Мягкие ссылки: без подчёркивания, плавное появление при наведении */
+article a,
+.breadcrumbs a,
+.breadcrumb-element a {
+  text-decoration: none;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+article a:hover,
+.breadcrumbs a:hover,
+.breadcrumb-element a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+  text-decoration-thickness: 1px;
+}
+
+/* Скруглённые цитаты и callouts */
+blockquote {
+  border-radius: 0 12px 12px 0;
+}
+
+.callout {
+  border-radius: 12px !important;
+}
+
+/* Выделение текста и полоса прокрутки в цветах сайта */
+::selection {
+  background: rgba(182, 156, 255, 0.35);
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: #3a3355 transparent;
+}
+
+/* ===================================================
+   Плитки вместо списка ссылок
+   Список внутри <div class="tiles"> превращается в сетку плиток.
+   Все плитки одной ширины — по самой длинной надписи.
+   =================================================== */
+
+article .tiles ul,
+.tiles ul {
+  list-style: none !important;
+  display: inline-grid !important;   /* сетка по ширине содержимого */
+  grid-auto-flow: column;            /* плитки в один ряд */
+  grid-auto-columns: 1fr;            /* все колонки равны самой широкой */
+  gap: $tile-gap;
+  padding: 0 !important;
+  margin: 1.25rem 0 !important;
+}
+
+.tiles ul li {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.tiles li p {
+  margin: 0 !important;
+}
+
+/* Плитка-кнопка: растягивается на всю колонку сетки */
+.tiles li a {
+  display: flex !important;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: $tile-padding !important;
+  font-size: 1.05rem !important;
+  font-weight: 500;
+  color: $tile-text !important;
+  background: $tile-bg !important;
+  border: 1px solid $tile-border;
+  border-radius: $tile-radius;
+  text-decoration: none !important;
+  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tiles li a:hover {
+  transform: translateY(-2px);
+  background: $tile-bg-hover !important;
+  border-color: $tile-border-hover;
+  box-shadow: 0 8px 22px rgba(124, 58, 237, 0.25);
+  text-decoration: none !important;
+}
+
+/* На узких экранах плитки встают столбиком (тоже одной ширины) */
+@media (max-width: 600px) {
+  article .tiles ul,
+  .tiles ul {
+    display: grid !important;
+    grid-auto-flow: row;
+  }
+}
+
+/* ===================================================
+   Подпись сайта наверху главной: <div class="site-title">...</div>
+   =================================================== */
+
+.site-title {
+  font-family: var(--headerFont), "Unbounded", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1.3;
+  color: $site-title-color !important;
+  margin: 0 0 0rem;
+}
+
+/* Жирная часть подписи: <span class="site-title-bold">...</span> */
+.site-title .site-title-bold {
+  font-weight: 700;
+}
+
+/* ===================================================
+   Карточки с описанием, как на obsidian.md
+   Список внутри <div class="cards">: ссылка = заголовок,
+   строка под ней = описание. Кликабельна вся карточка.
+   =================================================== */
+
+article .cards ul {
+  list-style: none !important;
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax($info-min-width, 1fr));
+  gap: $info-gap;
+  padding: 0 !important;
+  margin: 1.25rem 0 !important;
+}
+
+article .cards li {
+  position: relative;
+  isolation: isolate;
+  margin: 0 !important;
+  padding: $info-padding !important;
+  background: $info-bg;
+  border: 1px solid $info-border;
+  border-radius: $info-radius;
+  color: $muted !important;
+  font-size: 1rem;
+  line-height: 1.45;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+article .cards li:hover {
+  background: $info-bg-hover;
+  border-color: $info-border-hover;
+}
+
+/* Зернистость: слой шума под текстом, проявляется при наведении */
+article .cards li::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  transition: opacity 0.2s ease;
+}
+
+article .cards li:hover::before {
+  opacity: $info-grain-opacity;
+}
+
+article .cards li p {
+  margin: 0 !important;
+  color: inherit !important;
+}
+
+article .cards li br {
+  display: none;
+}
+
+article .cards li a {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem !important;
+  font-weight: 500;
+  line-height: 1.3;
+  color: $text !important;
+  text-decoration: none !important;
+  transition: color 0.2s ease;
+}
+
+article .cards li:hover a {
+  color: $link-color !important;
+}
+
+/* Растягиваем ссылку на всю карточку */
+article .cards li a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: $info-radius;
+}
+
+/* ===================================================
+   Подвал: горизонтальная черта и текст внизу страницы
+   (текст меняется в настройках вверху: $footer-text)
+   =================================================== */
+
+/* Колонка растягивается на высоту карточки, подвал прижимается вниз */
+.page > #quartz-body .center {
+  display: flex !important;
+  flex-direction: column;
+  min-height: calc(100vh - #{2 * $card-gap} - 2rem);
+}
+
+.center > article {
+  padding-bottom: 2rem;
+}
+
+.page-footer {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid $line;
+}
+
+.page-footer::after {
+  content: $footer-text;
+  display: block;
+  font-size: 0.9rem;
+  color: $muted;
+}
+
+/* ===================================================
+   Компактные callouts
+   (значения меняйте здесь, в переменных блока)
+   =================================================== */
+
+$callout-max-width: 100%;        /* ширина блока: 100% = как текст, можно 34rem, чтобы сузить */
+$callout-pad-x: 0.9rem;          /* отступ слева и справа внутри блока */
+$callout-title-pad: 0.55rem;     /* отступ сверху и снизу у заголовка */
+$callout-gap: 0.85rem;           /* расстояние между блоком и текстом вокруг */
+$callout-radius: 10px;           /* скругление */
+$callout-icon-size: 16px;        /* размер иконки в заголовке */
+
+article .callout {
+  max-width: $callout-max-width;
+  margin: $callout-gap 0 !important;
+  padding: 0 $callout-pad-x !important;
+  border-radius: $callout-radius !important;
+}
+
+/* Заголовок */
+article .callout .callout-title {
+  --icon-size: #{$callout-icon-size};
+  align-items: center;
+  gap: 6px;
+  padding: $callout-title-pad 0 !important;
+}
+
+article .callout .callout-title .callout-title-inner,
+article .callout .callout-title .callout-title-inner p {
+  font-size: 1rem;
+  line-height: 1.3;
+  margin: 0 !important;
+}
+
+/* Когда блок раскрыт, зазор под заголовком меньше */
+article .callout:not(.is-collapsed) .callout-title {
+  padding-bottom: 0.25rem !important;
+}
+
+/* Содержимое: компактные абзацы и без пустого места внизу */
+article .callout:not(.is-collapsed) .callout-content {
+  padding-bottom: $callout-title-pad;
+}
+
+article .callout .callout-content > * {
+  font-size: 0.97rem;
+}
+
+article .callout .callout-content > p {
+  margin: 0.3rem 0 !important;
+}
+
+article .callout .callout-content > :first-child {
+  margin-top: 0 !important;
+}
+
+article .callout .callout-content > :last-child {
+  margin-bottom: 0 !important;
+}
+
+/* Списки внутри callouts: без отрицательных отступов, чтобы первый пункт не прятался */
+article .callout .callout-content ul,
+article .callout .callout-content ol {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+article .callout .callout-content li:first-child {
+  margin-top: 0 !important;
+}
+
+/* ===================================================
+   Компактные таблицы (по левому краю)
+   =================================================== */
+
+$table-pad-y: 0.3rem;            /* отступ ячейки сверху и снизу */
+$table-pad-x: 0.75rem;           /* отступ ячейки слева и справа */
+
+/* Контейнер таблицы: прокрутка по горизонтали на узких экранах */
+article .table-container {
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+/* Сама таблица: по ширине содержимого, у левого края */
+article table {
+  width: auto !important;
+  max-width: 100%;
+  margin: 0 !important;
+  border-collapse: collapse;
+}
+
+article th,
+article td {
+  min-width: 0 !important;
+  padding: $table-pad-y $table-pad-x !important;
+  line-height: 1.3;
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* Первый столбец (sin, cos, tg, ctg) по левому краю — уберите, если нужно по центру */
+article td:first-child,
+article th:first-child {
+  text-align: left;
+}
+
+/* Внутри ячеек лишних отступов у абзацев быть не должно */
+article td p,
+article th p {
+  margin: 0 !important;
+}
+
+/* ===================================================
+   Заголовок H5: меньше отступ снизу
+   =================================================== */
+
+$h5-gap: 0.25rem;                /* расстояние между заголовком H5 и текстом под ним */
+
+article h5 {
+  margin-bottom: 0 !important;
+}
+
+article h5 + * {
+  margin-top: $h5-gap !important;
+}
+
+/* Страница 404: ниже и по центру */
+body[data-slug="404"] article {
+  margin-top: 10vh;
+  text-align: center;
+}
