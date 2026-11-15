@@ -7,7 +7,7 @@ cd "$(dirname "$0")"
 # Если вы используете связку с Obsidian, укажите путь к вашему хранилищу здесь:
 # Например: SRC="/home/misha/Documents/Vault"
 # Если редактируете файлы прямо в quartz/content, оставьте пустым: SRC=""
-SRC=""
+SRC="/home/misha/trubmd"
 
 if [ -n "$SRC" ] && [ -d "$SRC" ]; then
     echo "==> Синхронизация контента из Obsidian..."

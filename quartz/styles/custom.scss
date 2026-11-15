@@ -190,10 +190,10 @@ blockquote p {
 }
 
 /* Формулы KaTeX: шрифт Computer Modern (по умолчанию), размер 1.2em.
-   Шрифт здесь намеренно не задаётся, чтобы шрифты страницы его не перебивали. */
+   Шрифт здесь намеренно не задаётся, чтобы шрифты страницы его не перебивали. 
 .katex {
-  font-size: 1.21em !important; /* стандартно KaTeX использует 1.21em */
-}
+  font-size: 1.21em !important;  стандартно KaTeX использует 1.21em 
+}*/
 
 /* ===================================================
    Центрирование всех изображений на страницах Quartz
@@ -714,6 +714,7 @@ body[data-slug="404"] article {
   text-align: center;
 }
 
+
 /* Исключаем KaTeX из глобальных переопределений шрифтов и цветов */
 .katex, 
 .katex *, 
@@ -727,4 +728,7 @@ article .katex * {
 .katex em {
   font-style: italic !important;
   font-family: "KaTeX_Math", "KaTeX_Main", serif !important;
+}
+.katex .mathbb {
+  font-family: "KaTeX_AMS" !important;
 }
