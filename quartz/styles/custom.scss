@@ -192,7 +192,7 @@ blockquote p {
 /* Формулы KaTeX: шрифт Computer Modern (по умолчанию), размер 1.2em.
    Шрифт здесь намеренно не задаётся, чтобы шрифты страницы его не перебивали. */
 .katex {
-  font-size: 1.2em !important; /* стандартно KaTeX использует 1.21em */
+  font-size: 1.21em !important; /* стандартно KaTeX использует 1.21em */
 }
 
 /* ===================================================
@@ -712,4 +712,19 @@ article h5 + * {
 body[data-slug="404"] article {
   margin-top: 10vh;
   text-align: center;
+}
+
+/* Исключаем KaTeX из глобальных переопределений шрифтов и цветов */
+.katex, 
+.katex *, 
+article .katex, 
+article .katex * {
+  font-family: "KaTeX_Main", "KaTeX_Math", "KaTeX_Size1", "KaTeX_Size2", "KaTeX_Size3", "KaTeX_Size4", "KaTeX_AMS", monospace !important;
+}
+
+/* Возвращаем нормальный italic для математических формул */
+.katex i, 
+.katex em {
+  font-style: italic !important;
+  font-family: "KaTeX_Math", "KaTeX_Main", serif !important;
 }
